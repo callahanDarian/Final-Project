@@ -22,5 +22,5 @@ int main()
 {
 	int srand(GetTickCount());
 	int spellChosen = rand() % 2 + 0;
-	cout << randomSpell[spellChosen] << endl;	
+	std::cout << randomSpell[spellChosen] << endl;	
 }
