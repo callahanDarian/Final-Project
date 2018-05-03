@@ -12,15 +12,27 @@ to select it's spell, and then cast it on the opponent for a random amount of da
 #include<fstream>
 #include<time.h>
 #include<random>
+#include<string>
 #include<Windows.h>
 using namespace std;
 //Declare Global Variables
 
-std::string randomSpell[] = { "Pyroblast", "Icestorm", "Tempest"};
+string randomSpell[] = { "Pyroblast", "Icestorm", "Tempest"};
 
 int main()
 {
-	int srand(GetTickCount());
-	int spellChosen = rand() % 2 + 0;
-	std::cout << randomSpell[spellChosen] << endl;	
+	//Random Number Generator Seed for spell selection.
+		srand(GetTickCount());
+		//Random Number Generator (1 through 3)
+		int spellChosen = rand() % 3 + 1;
+		//Display spell cast
+		cout << "I cast.... " << randomSpell[spellChosen -1] << "!\n";
+		//Random Number Generator Seed for damage.
+		srand(GetTickCount());
+		//Random Number Generator (1 through 15) for damage.
+		int damage = rand() % 15 + 1;
+
+
+	system("pause");
+	return 0;
 }
