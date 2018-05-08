@@ -8,105 +8,159 @@ to select it's spell, and then cast it on the opponent for a random amount of da
 */
 
 //Libraries
-#include<iostream>
-#include<fstream>
-#include<time.h>
-#include<random>
-#include<string>
-#include<Windows.h>
+#include<iostream>	//cout cin
+#include<fstream>	//file in and out
+#include<time.h>	//system clock
+#include<random>	//random number generator
+#include<string>	//string outputs
+#include<Windows.h>	//GetTickCount
+
+
 using namespace std;
+//Only uses namespace std
+
+
 //Declare Global Variables
-int damage;
-int armorClass = 10;
-int MillhouseManastormHP = 3;
-int damageSum;
-int characterHP = 12;
-int heal;
-int spellAttackRoll;
+int damage; //Damage value of an attack (if it hits)
+int armorClass = 10; //The resistance to being hit with an attack ( This does not reduce amount of damage taken, but instead the likelihood of taking damage)
+int MillhouseManastormHP = 3; //This is Millhouse's starting hit points (Health)
+int characterHP = 12; //This is the adventurer's starting hit points (Health)
+int heal; //This is the health value gained through the use of a healing spell
+int spellAttackRoll; //This is the rating of an attack, if it is greater than the armor class, it hits)
 string randomSpell[] = { "Firebolt", "Ray of Frost", "Acid Splash", "Chill Touch", "Poison Spray", "Shocking Grasp", "Burning Hands", "Magic Missile", "Thunderwave" };
+//These are the damaging spells that Milhouse Manastorm can use.
 
-int acCheck()
+int acCheck() //Generates the spellAttackRoll value to determine if the spell hits the adventurer
 {
-	Sleep(1);
-		srand(GetTickCount());
-		spellAttackRoll = rand() % 20 + 1;
-		spellAttackRoll = spellAttackRoll + 4;
+	Sleep(1); //Change RNG seed
+	srand(GetTickCount()); //Run random number Generator
+	spellAttackRoll = rand() % 20 + 1;	//Run random number generator, and assign value to spellAttackRoll
+	spellAttackRoll = spellAttackRoll + 4; //Add 4 from Millhouse's proficiency rating to the spellAttackRoll value
 		
-	
-	return 0;
+	return 0; //Conclude function
 }
 
-int roll(int x, int y)
+int roll(int x, int y) //Rolls the damage values of a spell
 {
-	damage = 0;
-	for (int z = 0; z < y; z++)
+	/*
+	This function rolls the dice to determine the damage of the spell
+	x = sides of dice rolled
+	y = amount of dice rolled
+	Runs a random number generator, using x as the max number, and y as the amount of dice rolled
+	damage = sum of dice rolled
+	*/
+
+
+	damage = 0; //Reset Damage Value
+	for (int z = 0; z < y; z++) //For loop for amount of dice rolled
 	{
-	srand(GetTickCount());
-	damage = damage + rand() % x + 1;
+		Sleep(1); // Change Tick Count for RNG
+	srand(GetTickCount()); //Set RNG seed
+	damage = damage + rand() % x + 1; //Add another dice roll's rating to the earlier damage value
 	}
-	return 0;
+	return 0; // Function conclusion
 }
-int healingRoll(int x, int y)
+int healingRoll(int x, int y) //Rolls the heal value of a spell
+ /*
+	This function rolls the dice to determine the heal value of a spell
+	x = sides of dice rolled
+	y = amount of dice rolled
+	The function runs a random number generator, using x as the max number, and y as the amount of dice rolled
+*/
+
 {
-	heal = 0;
-	for (int z = 0; z < y; z++)
+	heal = 0; //Resets heal value to 0
+	for (int z = 0; z < y; z++)	//For loop for amount of dice rolled
 	{
-		srand(GetTickCount());
-		heal = heal + rand() % x + 1;
-		MillhouseManastormHP = MillhouseManastormHP + heal;
+		Sleep(1); //Change Tick Count for RNG
+		srand(GetTickCount()); //Set RNG Seed
+		heal = heal + rand() % x + 1; //Add another dice roll's rating to the earlier heal value
+		
 	}
-	return 0;
+	MillhouseManastormHP = MillhouseManastormHP + heal; // Add heal value to Millhouse Manastorm's HP
+
+	return 0;	//Function Conclusion
 }
-int saveThrow(int x)
+
+int saveThrow(int x) //Determines if adventurer is wise enough to avoid falling for a spell
 {
-	int savingThrow = 0;
-	int WisModifier = 0;
-	srand(GetTickCount());
-	savingThrow = rand() % 20 + 1;
-	savingThrow = savingThrow + WisModifier;
-	return 0;
+	int savingThrow = 0;	//Resets saving throw value
+	int WisModifier = 0;	//Target's wisdom modifer
+	srand(GetTickCount());	//Sets RNG seed
+	savingThrow = rand() % 20 + 1;	//Sets saving throw = to a random 20 sided dice value
+	savingThrow = savingThrow + WisModifier; //Adds wisdom modifier to saving throw value
+	if (savingThrow > x)
+		return 1; //Ends the function
+	else
+		return 0; //Ends the function
 }
-int saveThrowHalf(int x)
+int saveThrowHalf(int x)	//Check if save throw passes
 {
-	int savingThrow = 0;
-	int DexModifier = 0;
-	srand(GetTickCount());
-	savingThrow = rand() % 20 + 1;
-	savingThrow = savingThrow + DexModifier;
-	if (savingThrow >= x)
-		damage = damage / 2;
-	else{}
-	return 0;
+	/*
+	This function rolls the dice to determine if the adventurer is dexterous enough to only receive
+	half damage from an area of effect spell. If the roll is higher than the spell's predetermined
+	saving throw value, the adventurer only receives half damage, if not, do not change the damage.
+	x = Spell value for check to pass
+	The function runs a random number generator, using x as the max number, and y as the amount of dice rolled
+	*/
+
+	int savingThrow = 0;	//Resets saving throw value
+	int DexModifier = 0;	//Target's dexterity modifier
+	srand(GetTickCount());	//Sets RNG Seed
+	savingThrow = rand() % 20 + 1;	//Sets saving throw = to a random 20 sided dice value
+	savingThrow = savingThrow + DexModifier;	//Adds dexterity modifier to saving throw value
+	if (savingThrow >= x)	 //If the saving throw is greater than or equal to dex save value of a spell
+		damage = damage / 2; //Cut the damage in half
+							 //If not
+	else{}					 //Do nothing
+	return 0;	//End function
 }
-int castDmgSpell()
+int castDmgSpell() //Determines what damage spell to roll, and uses the roll function to determine damage dealt
 {
 	//Random Number Generator Seed for spell selection.
 	srand(GetTickCount());
 	//Random Number Generator (1 through 3)
 	int spellChosen = rand() % 9 + 1;
 	//Display spell cast
-	cout << "I cast.... " << randomSpell[spellChosen -1] << "!\n";
-	Sleep(547);
-	switch (spellChosen)
+	cout << "I cast.... " << randomSpell[spellChosen -1] << "!\n";	//Display to adventurer what spell Millhouse casts
+	Sleep(547); //Wait for 547 milliseconds to cast spell
+	switch (spellChosen)	//Rolls damage depending on spell chosen
 	{
+		/*
+		Spell structures are as follows:
+		//Spell Name
+		Case # for switch statement
+			(optional)acCheck to roll spellAttackValue 
+			if statement to check if spell pierces armor class
+			(optional )
+			savingThrowHalf call for dex checks
+			(necessary)
+			call roll function to determine damage
+			break to end case in switch statement
+		*/
+
+
 		//FireBolt
 		case 1:
-			int acCheck();
+			acCheck();
 			if (spellAttackRoll > armorClass)
 			roll(8, 1);
 			break;
 		//Ray of Frost
 		case 2:
+			acCheck();
 			if (spellAttackRoll > armorClass)
 			roll(10, 1);
 			break;
 		//Acid Splash
 		case 3:
+			acCheck();
 			if (spellAttackRoll > armorClass)
 			roll(6, 1);
 			break;
 		//Chill Touch
 		case 4:
+			acCheck();
 			if (spellAttackRoll > armorClass)
 			roll(8, 1);
 			break;
@@ -118,11 +172,13 @@ int castDmgSpell()
 			break;
 		//Shocking Grasp
 		case 6:
+			acCheck();
 			if (spellAttackRoll > armorClass)
 			roll(8, 1);
 			break;
 		//Burning Hands
 		case 7:
+			acCheck();
 			roll(6, 3);
 			break;
 		//Magic Missile
@@ -141,21 +197,17 @@ int castDmgSpell()
 }
 int healingSpells()
 {
-	string randomSpell[] = { "Charm Person", "False Life" };
-	//Random Number Generator Seed for spell selection.
-	srand(GetTickCount());
-	//Random Number Generator (1 through 2)
-	int spellChosen = rand() % 2 + 1;
-	//Display spell cast
-	cout << "I cast.... " << randomSpell[spellChosen -1] << "!\n";
-	switch (spellChosen)
+	string randomSpell[] = { "Charm Person", "False Life" };	//Healing spells to chose from
+	srand(GetTickCount());	//Random Number Generator Seed for spell selection
+	int spellChosen = rand() % 2 + 1; //Random Number Generator (1 through 2) to determine spell chosen
+	cout << "I cast.... " << randomSpell[spellChosen -1] << "!\n";	//Display spell cast for adventurer
+	switch (spellChosen) //Switch statement for spell chosen
 	{
 		//Charm Person
 	case 1:
 		//SaveThrow for Wisdom > 12
 		roll(2, 1);
-		saveThrow(12);
-		if (damage > 0)
+		if(saveThrow(12) != 0)
 		{
 			cout << "You become charmed by the handsome Millhouse Manastorm. \n";
 			Sleep(2113);
