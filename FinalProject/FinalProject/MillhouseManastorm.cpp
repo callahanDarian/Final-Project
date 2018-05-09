@@ -206,24 +206,51 @@ int healingSpells()
 		//Charm Person
 	case 1:
 		//SaveThrow for Wisdom > 12
-		roll(2, 1);
 		if(saveThrow(12) != 0)
 		{
-			cout << "You become charmed by the handsome Millhouse Manastorm. \n";
-			Sleep(2113);
-			cout << "You go shopping with the awesome Millhouse Manastorm. \n";
-			Sleep(2246);
-			cout << "You go on a walk with the venturesome Millhouse Manastorm. \n";
+			cout << "You become charmed by the handsome Millhouse Manastorm. \n";	//Flavor Text
+			Sleep(2113);	//Wait 2 seconds (ish)
+			cout << "You go shopping with the awesome Millhouse Manastorm. \n";		//Flavor Text
+			Sleep(2246);	//Wait 2 seconds (ish)
+			cout << "You go on a walk with the venturesome Millhouse Manastorm. \n";	//Flavor Text
 		}
 		else
-			cout << "You manage to be aware of the handsome Millhouse Manastorm... but not handsome enough! \n";
+			cout << "You manage to be aware of the handsome Millhouse Manastorm... but not handsome enough! \n"; //Flavor Text (Save Throw)
 		break;
 	case 2:
-		healingRoll(4, 1);
-		heal = heal + 4;
-		MillhouseManastormHP = MillhouseManastormHP + heal;
+		healingRoll(4, 1);	//Heal for 1d4
+		heal = heal + 4;	//Add 4 to heal
+		MillhouseManastormHP = MillhouseManastormHP + heal;	//Apply heal
 		break;
 	}
+	return 0;
+}
+int SpellsCharacter()
+{
+	string wizardSpells = "Acid Splash, Blade Ward, Chill Touch, Dancing Lights, Fire Bolt, Friends, Light, Mage Hand, Mending, Message, Minor Illusion, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, True Strike, Alarm, Burning Hands, Charm Person, Chromatic Orb, Color Spray, Comprehend Languages, Detect Magic, Disguise Self, Expeditious Retreat, False Life, Feather Fall, Find Familiar, Fog Cloud, Grease, Identify, Illusory Script, Jump, Longstrider, Mage Armor, Magic Missile, Protection from Evil and Good, Ray of Sickness, Shield, Silent Image, Sleep, Tasha’s Hideous Laughter, Tenser’s Floating Disk, Thunderwave, Unseen Servant, Witch Bolt";
+	string warlockSpells = "Blade Ward, Chill Touch, Eldritch Blast, Friends, Mage Hand, Minor Illusion, Poison Spray, Prestidigitation, True Strike, Armor of Agathys, Arms of Hadar, Charm Person, Comprehend Languages, Expeditious Retreat, Hellish Rebuke, Hex, Illusory Script, Protection from Evil and Good, Unseen Servant, Witch Bolt";
+	string sorcererSpells = "Acid Splash, Blade Ward, Chill Touch, Dancing Lights, Fire Bolt, Friends, Light, Mage Hand, Mending, Message, Minor Illusion, Poison Spray, Prestidigitation,Ray of Frost ,Shocking Grasp True Strike, Burning Hands, Charm Person, Chromatic Orb, Color Spray, Comprehend Languages, Detect Magic, Disguise Self, Expeditious Retreat, False Life, Feather Fall, Fog Cloud, Jump, Mage Armor, Magic Missile, Ray of Sickness, Shield, Silent Image, Sleep, Thunderwave, Witch Bolt";
+	string rangerSpells = "Alarm, Animal Friendship, Cure Wounds, Detect Magic, Detect Poison and Disease, Ensnaring Strike, Fog Cloud, Goodberry, Hail o f Thorns, Hunter’s Mark, Jump, Longstrider, Speak with Animals";
+	string paladinSpells = "Bless, Command, Compelled Duel, Cure Wounds, Detect Evil and Good, Detect Magic, Detect Poison and Disease, Divine Favor, Heroism, Protection from Evil and Good, Purify Food and Drink, Searing Smite, Shield of Faith, Thunderous Smite, Wrathful Smite";
+	string druidSpells = "Druidcraft, Guidance, Mending, Poison Spray, Produce Flame, Resistance, Shillelagh, Thorn Whip, Animal Friendship, Charm Person, Create or Destroy Water, Cure Wounds, Detect Magic, Detect Poison and Disease, Entangle, Faerie Fire, Fog Cloud, Goodberry, 	Healing Word, Jump, Longstrider, Purify Food and Drink, Speak with Animals,	Thunderwave";
+	string clericSpells = "Guidance, Light, Mending, Resistance, Sacred Flame, Spare the Dying, Thaumaturgy, Bane, Bless, Command, Create or Destroy Water, Cure Wounds, Detect Evil and Good, Detect Magic, Detect Poison and Disease, Guiding Bolt, Healing Word, Inflict Wounds, Protection from, Evil and Good, Purify Food and Drink, Sanctuary, Shield of Faith";
+	string bardSpells = "Blade Ward, Dancing Lights, Friends, Light, Mage Hand, Mending, Message, Minor Illusion, Prestidigitation, True Strike, Vicious Mockery, Animal Friendship, Bane, Charm Person, Comprehend Languages, Cure Wounds, Detect Magic, Disguise Self, Dissonant Whispers, Faerie Fire, Feather Fall, Healing Word, Heroism, Identify, Illusory Script, Longstrider, Silent Image, Sleep, Speak with Animals, Tasha’s Hideous Laughter, Thunderwave, Unseen Servant";
+	//if (class == bard)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << bardSpells;
+	//else if (class == cleric)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << clericSpells;
+	//else if (class == druid)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << druidSpells;
+	//else if (class == ranger)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << rangerSpells;
+	//else if (class == paladin)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << paladinSpells;
+	//else if (class == sorcerer)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << sorcererSpells;
+	//else if (class == warlock)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << warlockSpells;
+	//else if (class == wizard)
+	cout << "What spell would you like to cast? (Type exactly as follows) " << wizardSpells;
 	return 0;
 }
 
@@ -231,34 +258,35 @@ int main()
 {
 	do
 	{
-		if (MillhouseManastormHP <= 2)
+		if (MillhouseManastormHP <= 2)	//If HP <= 2, run away and heal
 		{
 			//Expeditious Retreat
 			cout << "Millhouse runs away 75ft/s for 10 minutes. \n Millhouse being " << 75 * 60 * 60 << " feet away, heals to maximum and you spend 30 minutes catching up to him!" << endl;
 			MillhouseManastormHP = 8;
 			Sleep(1000 * 4);
 		}
-		else if (MillhouseManastormHP > 2 && MillhouseManastormHP <= 4)
+		else if (MillhouseManastormHP > 2 && MillhouseManastormHP <= 4)	//If HP is between 3 and 4 cast healing spells.
 		{	//Healing Spells
 			healingSpells();
 		}
-		else
+		else	//Cast damaging spells when HP is not below 4
 		{
-			if (characterHP <= 0)
-				goto GetOut;
-			castDmgSpell();
-			characterHP = characterHP - damage;
-			cout << "Your current HP is: " << characterHP << ". \n";
+			if (characterHP <= 0)	//Escape loop
+				goto GetOut;	//You got killed by Millhouse!
+			castDmgSpell();	//Cast DMG Spells
+			characterHP = characterHP - damage;	// Apply damage
+			cout << "Your current HP is: " << characterHP << ". \n";	//Display HP
 		}
-	} while (MillhouseManastormHP > 0);
+	} while (MillhouseManastormHP > 0);	//While Millhouse is alive, cast spells
 
-	cout << "You have defeated the great and glorious Millhouse Manastorm! \n After murdering the great wizard, the town guards execute you. \n";
-GetOut:
-	if (characterHP <= 0)
+	cout << "You have defeated the great and glorious Millhouse Manastorm! \n After murdering the great wizard, the town guards execute you. \n";	//Millhouse dies
+GetOut:	//Millhouse Manastorm wins
+	if (characterHP <= 0)	//If character dies
 	{
-		cout << "You have been defeated by the great, glorious, and victorious Millhouse Manastorm! Long live the sorcerer! Long live the foolish! \n";
+		cout << "You have been defeated by the great, glorious, and victorious Millhouse Manastorm! Long live the sorcerer! Long live the foolish! \n";	//Millhouse win statement
 	}
-	system("pause");
-	return 0;
+	SpellsCharacter();
+	system("pause");	//Conclusion
+	return 0;	//Conclusion
 }
 
