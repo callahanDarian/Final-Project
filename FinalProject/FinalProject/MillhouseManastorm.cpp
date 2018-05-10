@@ -27,6 +27,8 @@ int MillhouseManastormHP = 3; //This is Millhouse's starting hit points (Health)
 int characterHP = 12; //This is the adventurer's starting hit points (Health)
 int heal; //This is the health value gained through the use of a healing spell
 int spellAttackRoll; //This is the rating of an attack, if it is greater than the armor class, it hits)
+int millhouseArmorClass = 10;
+
 string randomSpell[] = { "Firebolt", "Ray of Frost", "Acid Splash", "Chill Touch", "Poison Spray", "Shocking Grasp", "Burning Hands", "Magic Missile", "Thunderwave" };
 //These are the damaging spells that Milhouse Manastorm can use.
 
@@ -206,7 +208,7 @@ int healingSpells()
 		//Charm Person
 	case 1:
 		//SaveThrow for Wisdom > 12
-		if(saveThrow(12, WisMod) != 0)
+		if(saveThrow(12, WisMod) != 1)
 		{
 			cout << "You become charmed by the handsome Millhouse Manastorm. \n";	//Flavor Text
 			Sleep(2113);	//Wait 2 seconds (ish)
@@ -227,7 +229,7 @@ int healingSpells()
 }
 int SpellsCharacter()
 {
-	string wizardSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Tasha’s Hideous Laughter, Tenser’s Floating Disk, Thunderwave, Witch Bolt";
+	string wizardSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Tasha’s Hideous Laughter, Thunderwave, Witch Bolt";
 	string warlockSpells = "Chill Touch, Eldritch Blast, Poison Spray, Prestidigitation, Arms of Hadar, Charm Person, Hellish Rebuke, Hex, Witch Bolt";
 	string sorcererSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Thunderwave, Witch Bolt";
 	string rangerSpells = "Cure Wounds, Hail of Thorns, Hunter’s Mark";
@@ -261,21 +263,21 @@ int SpellsCharacter()
 	if (userSpell == "Acid Splash")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
 
 	if (userSpell == "Chill touch")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
 	
 	if (userSpell == "Cure Wounds")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			healingRoll(8, 1);
 		heal = heal + spellAttack;
 		characterHP = characterHP + heal;
@@ -283,26 +285,26 @@ int SpellsCharacter()
 	if (userSpell == "Eldritch Blast")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(10, 1);
 	}
 	
 	if (userSpell == "Firebolt")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(10, 1);
 	}
 	if (userSpell == "Hail of Thorns")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(10, 1);
 	}
 	if (userSpell == "Poison Spray")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(12, 1);
 	}
 	if (userSpell == "Prestidigitation")
@@ -313,19 +315,19 @@ int SpellsCharacter()
 	if (userSpell == "Produce Flame")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
 	if (userSpell == "Ray of Frost")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
 	if (userSpell == "Sacred Flame")
 	{
 		saveThrow(spellDC, DexMod);
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
 	if (userSpell == "Spare the Dying")
@@ -336,13 +338,13 @@ int SpellsCharacter()
 	if (userSpell == "Shillelagh")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
 	if (userSpell == "Shocking Grasp")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
 	if (userSpell == "Shield of Faith")
@@ -352,131 +354,125 @@ int SpellsCharacter()
 	if (userSpell == "Thorn Whip")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
 	if (userSpell == "Thunderous Smite")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 2);
 	}
 	if (userSpell == "Wrathful Smite")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
 	if (userSpell == "Vicious Mockery")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(4, 1);
 	}
 	if (userSpell == "Arms of Hadar")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+			roll(6, 2);
+		if (saveThrow(spellDC, StrMod) != 1)
+			damage = damage / 2;
 	}
 	if (userSpell == "Burning Hands")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+			roll(6, 3);
+		if (saveThrow(spellDC, DexMod) != 1)
+			damage = damage / 2;
 	}
 	if (userSpell == "Charm Person")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		if (saveThrow(spellDC, WisMod) != 1)
+		{
+			cout << "You charm the handsome Millhouse Manastorm. \n";	//Flavor Text
+			Sleep(2113);	//Wait 2 seconds (ish)
+			cout << "You go shopping with the awesome Millhouse Manastorm. \n";		//Flavor Text
+			Sleep(2246);	//Wait 2 seconds (ish)
+			cout << "You go on a walk with the venturesome Millhouse Manastorm. \n";	//Flavor Text
+		}
+		else
+			cout << "You manage to be aware of the handsome Millhouse Manastorm... but not handsome enough! \n"; //Flavor Text (Save Throw)
 	}if (userSpell == "Chromatic Orb")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		if (spellAttackRoll > millhouseArmorClass)
+			roll(8, 3);
 	}if (userSpell == "Cure Wounds")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+			healingRoll(8, 1);
+			heal = heal + 4;
+			characterHP = characterHP + heal;
 	}if (userSpell == "Dissonant Whispers")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		if (saveThrow(spellDC, WisMod) != 1)
+			roll(6, 3);
 	}if (userSpell == "False Life")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
-	}if (userSpell == "Faerie Fire")
-	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		healingRoll(4, 1);
+		heal = heal + 4;
+		characterHP = characterHP + heal;
 	}if (userSpell == "Healing Word")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		healingRoll(4, 1)
+			heal = heal + spellAttack;
+		characterHP = characterHP + heal;
 	}if (userSpell == "Hellish Rebuke")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
+			if (saveThrow(spellDC, DexMod) != 1)
+				damage = damage / 2;
 	}if (userSpell == "Hex")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
+		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}if (userSpell == "Inflict Wounds")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		if (spellAttackRoll > millhouseArmorClass)
+			roll(10, 3);
 	}
 	if (userSpell == "Mage Armor")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		armorClass = 13 + DexMod;
 	}
 	if (userSpell == "Magic Missile")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+			roll(4, 3);
+			damage = damage + 3;
 	}
 	if (userSpell == "Ray of Sickness")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		if (spellAttackRoll > millhouseArmorClass)
+			roll(8, 2);
 	}
 	if (userSpell == "Tasha's Hideous Laughter")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
-	}
-	if (userSpell == "Tenser’s Floating Disk")
-	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		cout << "Millhouse begins to laugh uncontrollably." << endl;
+		Sleep(2001);
+		cout << "Millhouse continues to laugh uncontrollably." << endl;
+		Sleep(2001);
+		cout << "Millhouse ends laughing uncontrollably." << endl;
 	}
 	if (userSpell == "Thunderwave")
 	{
-		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+			roll(8, 2);
+			if (saveThrow(spellDC, ConMod) != 1)
+				damage = damage / 2;
 	}
 	if (userSpell == "Witch Bolt")
 	{
 		acCheck();
-		if (characterSpellAttackRoll > millhouseArmorClass)
-			roll(6, 1);
+		if (spellAttackRoll > millhouseArmorClass)
+			roll(12, 1);
 	}
 
 
