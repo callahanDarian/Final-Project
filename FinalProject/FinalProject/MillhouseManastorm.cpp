@@ -82,13 +82,13 @@ int healingRoll(int x, int y) //Rolls the heal value of a spell
 	return 0;	//Function Conclusion
 }
 
-int saveThrow(int x) //Determines if adventurer is wise enough to avoid falling for a spell
+int saveThrow(int x, int y) //Determines if adventurer is wise enough to avoid falling for a spell
 {
 	int savingThrow = 0;	//Resets saving throw value
 	int WisModifier = 0;	//Target's wisdom modifer
 	srand(GetTickCount());	//Sets RNG seed
 	savingThrow = rand() % 20 + 1;	//Sets saving throw = to a random 20 sided dice value
-	savingThrow = savingThrow + WisModifier; //Adds wisdom modifier to saving throw value
+	savingThrow = savingThrow; //Adds wisdom modifier to saving throw value
 	if (savingThrow > x)
 		return 1; //Ends the function
 	else
@@ -206,7 +206,7 @@ int healingSpells()
 		//Charm Person
 	case 1:
 		//SaveThrow for Wisdom > 12
-		if(saveThrow(12) != 0)
+		if(saveThrow(12, WisMod) != 0)
 		{
 			cout << "You become charmed by the handsome Millhouse Manastorm. \n";	//Flavor Text
 			Sleep(2113);	//Wait 2 seconds (ish)
@@ -227,30 +227,260 @@ int healingSpells()
 }
 int SpellsCharacter()
 {
-	string wizardSpells = "Acid Splash, Blade Ward, Chill Touch, Dancing Lights, Fire Bolt, Friends, Light, Mage Hand, Mending, Message, Minor Illusion, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, True Strike, Alarm, Burning Hands, Charm Person, Chromatic Orb, Color Spray, Comprehend Languages, Detect Magic, Disguise Self, Expeditious Retreat, False Life, Feather Fall, Find Familiar, Fog Cloud, Grease, Identify, Illusory Script, Jump, Longstrider, Mage Armor, Magic Missile, Protection from Evil and Good, Ray of Sickness, Shield, Silent Image, Sleep, Tasha’s Hideous Laughter, Tenser’s Floating Disk, Thunderwave, Unseen Servant, Witch Bolt";
-	string warlockSpells = "Blade Ward, Chill Touch, Eldritch Blast, Friends, Mage Hand, Minor Illusion, Poison Spray, Prestidigitation, True Strike, Armor of Agathys, Arms of Hadar, Charm Person, Comprehend Languages, Expeditious Retreat, Hellish Rebuke, Hex, Illusory Script, Protection from Evil and Good, Unseen Servant, Witch Bolt";
-	string sorcererSpells = "Acid Splash, Blade Ward, Chill Touch, Dancing Lights, Fire Bolt, Friends, Light, Mage Hand, Mending, Message, Minor Illusion, Poison Spray, Prestidigitation,Ray of Frost ,Shocking Grasp True Strike, Burning Hands, Charm Person, Chromatic Orb, Color Spray, Comprehend Languages, Detect Magic, Disguise Self, Expeditious Retreat, False Life, Feather Fall, Fog Cloud, Jump, Mage Armor, Magic Missile, Ray of Sickness, Shield, Silent Image, Sleep, Thunderwave, Witch Bolt";
-	string rangerSpells = "Alarm, Animal Friendship, Cure Wounds, Detect Magic, Detect Poison and Disease, Ensnaring Strike, Fog Cloud, Goodberry, Hail o f Thorns, Hunter’s Mark, Jump, Longstrider, Speak with Animals";
-	string paladinSpells = "Bless, Command, Compelled Duel, Cure Wounds, Detect Evil and Good, Detect Magic, Detect Poison and Disease, Divine Favor, Heroism, Protection from Evil and Good, Purify Food and Drink, Searing Smite, Shield of Faith, Thunderous Smite, Wrathful Smite";
-	string druidSpells = "Druidcraft, Guidance, Mending, Poison Spray, Produce Flame, Resistance, Shillelagh, Thorn Whip, Animal Friendship, Charm Person, Create or Destroy Water, Cure Wounds, Detect Magic, Detect Poison and Disease, Entangle, Faerie Fire, Fog Cloud, Goodberry, 	Healing Word, Jump, Longstrider, Purify Food and Drink, Speak with Animals,	Thunderwave";
-	string clericSpells = "Guidance, Light, Mending, Resistance, Sacred Flame, Spare the Dying, Thaumaturgy, Bane, Bless, Command, Create or Destroy Water, Cure Wounds, Detect Evil and Good, Detect Magic, Detect Poison and Disease, Guiding Bolt, Healing Word, Inflict Wounds, Protection from, Evil and Good, Purify Food and Drink, Sanctuary, Shield of Faith";
-	string bardSpells = "Blade Ward, Dancing Lights, Friends, Light, Mage Hand, Mending, Message, Minor Illusion, Prestidigitation, True Strike, Vicious Mockery, Animal Friendship, Bane, Charm Person, Comprehend Languages, Cure Wounds, Detect Magic, Disguise Self, Dissonant Whispers, Faerie Fire, Feather Fall, Healing Word, Heroism, Identify, Illusory Script, Longstrider, Silent Image, Sleep, Speak with Animals, Tasha’s Hideous Laughter, Thunderwave, Unseen Servant";
-	//if (class == bard)
+	string wizardSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Tasha’s Hideous Laughter, Tenser’s Floating Disk, Thunderwave, Witch Bolt";
+	string warlockSpells = "Chill Touch, Eldritch Blast, Poison Spray, Prestidigitation, Arms of Hadar, Charm Person, Hellish Rebuke, Hex, Witch Bolt";
+	string sorcererSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Thunderwave, Witch Bolt";
+	string rangerSpells = "Cure Wounds, Hail of Thorns, Hunter’s Mark";
+	string paladinSpells = "Cure Wounds, Searing Smite, Shield of Faith, Thunderous Smite, Wrathful Smite";
+	string druidSpells = "Poison Spray, Produce Flame, Shillelagh, Thorn Whip, Charm Person, Cure Wounds, Faerie Fire, Healing Word, Thunderwave";
+	string clericSpells = "Sacred Flame, Spare the Dying, Cure Wounds, Guiding Bolt, Healing Word, Inflict Wounds, Shield of Faith";
+	string bardSpells = "Prestidigitation, Vicious Mockery, Charm Person, Cure Wounds, Dissonant Whispers, Faerie Fire, Healing Word, Tasha’s Hideous Laughter, Thunderwave";
+	if (spec == bard)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << bardSpells;
-	//else if (class == cleric)
+	else if (spec == cleric)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << clericSpells;
-	//else if (class == druid)
+	else if (spec == druid)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << druidSpells;
-	//else if (class == ranger)
+	else if (spec == ranger)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << rangerSpells;
-	//else if (class == paladin)
+	else if (spec == paladin)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << paladinSpells;
-	//else if (class == sorcerer)
+	else if (spec == sorcerer)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << sorcererSpells;
-	//else if (class == warlock)
+	else if (spec == warlock)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << warlockSpells;
-	//else if (class == wizard)
-	cout << "What spell would you like to cast? (Type exactly as follows) " << wizardSpells;
+	else if (spec == wizard)
+		cout << "What spell would you like to cast? (Type exactly as follows) " << wizardSpells;
+	else
+		cout << "You have no spells idiot." << endl;
+
+	string userSpell;
+
+
+
+	if (userSpell == "Acid Splash")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+
+	if (userSpell == "Chill touch")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(8, 1);
+	}
+	
+	if (userSpell == "Cure Wounds")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			healingRoll(8, 1);
+		heal = heal + spellAttack;
+		characterHP = characterHP + heal;
+	}
+	if (userSpell == "Eldritch Blast")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(10, 1);
+	}
+	
+	if (userSpell == "Firebolt")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(10, 1);
+	}
+	if (userSpell == "Hail of Thorns")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(10, 1);
+	}
+	if (userSpell == "Poison Spray")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(12, 1);
+	}
+	if (userSpell == "Prestidigitation")
+	{
+		cout << "You make a circle on the ground. Woo You. Great Job.";
+		cout << "Sparks come out your hands for 10 minutes.";
+	}
+	if (userSpell == "Produce Flame")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(8, 1);
+	}
+	if (userSpell == "Ray of Frost")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(8, 1);
+	}
+	if (userSpell == "Sacred Flame")
+	{
+		saveThrow(spellDC, DexMod);
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Spare the Dying")
+	{
+			healingRoll(8, 1);
+		characterHP = characterHP + heal;
+	}
+	if (userSpell == "Shillelagh")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(8, 1);
+	}
+	if (userSpell == "Shocking Grasp")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(8, 1);
+	}
+	if (userSpell == "Shield of Faith")
+	{
+		armorClass = armorClass + 2;
+	}
+	if (userSpell == "Thorn Whip")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Thunderous Smite")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 2);
+	}
+	if (userSpell == "Wrathful Smite")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Vicious Mockery")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(4, 1);
+	}
+	if (userSpell == "Arms of Hadar")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Burning Hands")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Charm Person")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Chromatic Orb")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Cure Wounds")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Dissonant Whispers")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "False Life")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Faerie Fire")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Healing Word")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Hellish Rebuke")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Hex")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}if (userSpell == "Inflict Wounds")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Mage Armor")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Magic Missile")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Ray of Sickness")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Tasha's Hideous Laughter")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Tenser’s Floating Disk")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Thunderwave")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+	if (userSpell == "Witch Bolt")
+	{
+		acCheck();
+		if (characterSpellAttackRoll > millhouseArmorClass)
+			roll(6, 1);
+	}
+
+
+
 	return 0;
 }
 
