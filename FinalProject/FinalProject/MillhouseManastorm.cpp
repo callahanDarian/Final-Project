@@ -32,6 +32,224 @@ int millhouseArmorClass = 10;
 string randomSpell[] = { "Firebolt", "Ray of Frost", "Acid Splash", "Chill Touch", "Poison Spray", "Shocking Grasp", "Burning Hands", "Magic Missile", "Thunderwave" };
 //These are the damaging spells that Milhouse Manastorm can use.
 
+
+string character;
+string spec;
+
+string feat[10];
+string equipment[10];
+int attackMod, damageMod;
+int weaponDice[10];
+int spellAttack, spellDC;
+
+int initiative, health, speed, hitDice, AC, proficiency, StrScore, StrMod, StrSave, DexScore, DexMod, DexSave, ConScore, ConMod, ConSave, IntScore, IntMod, IntSave, WisScore, WisMod, WisSave, ChaScore, ChaMod, ChaSave, athletics, acrobatics, sleightOfHand, stealth, arcana, history, investigation, nature, religion, animalHandling, insight, medicine, perception, survival, deception, intimidation, performance, persuasion;
+
+int rage, rageDamage, secondWind;
+void characterFeng()
+{
+	spec = "barbarian";
+
+	initiative = DexMod;
+	health = 12 + ConMod;
+	speed = 30;
+	hitDice = 12;
+	AC = 10 + DexMod + ConMod;
+	proficiency = 2;
+
+	StrScore = 17;
+	StrMod = 3;
+	StrSave = StrMod + proficiency;
+
+	DexScore = 13;
+	DexMod = 1;
+	DexSave = DexMod;
+
+	ConScore = 15;
+	ConMod = 2;
+	ConSave = ConMod + proficiency;
+
+	IntScore = 8;
+	IntMod = -1;
+	IntSave = IntMod;
+
+	WisScore = 10;
+	WisMod = 0;
+	WisSave = WisMod;
+
+	ChaScore = 12;
+	ChaMod = 1;
+	ChaSave = ChaMod;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[1] = "Greataxe";
+	weaponDice[1] = 12;
+
+	equipment[2] = "Handaxe";
+	weaponDice[2] = 6;
+
+	equipment[3] = "Javelin";
+	weaponDice[3] = 6;
+
+	feat[1] = "Once, you can drop to 1hp instead of being reduced to 0hp";
+	secondWind = 1;
+
+	feat[2] = "Roll one additional weapon die of damage on a crit";
+
+	feat[3] = "Twice, you gain advantage on Str checks and saves, deal +2 damage on attacks, and gain resistance vs bludgeoning, piercing, and slashing";
+	rage = 2;
+	rageDamage = 2;
+}
+
+
+
+void characterChant()
+{
+	spec = "bard";
+
+	initiative = DexMod;
+	health = 8 + ConMod;
+	speed = 30;
+	hitDice = 8;
+	AC = 11 + DexMod;
+	proficiency = 2;
+
+	StrScore = 13;
+	StrMod = 1;
+	StrSave = StrMod;
+
+	DexScore = 14;
+	DexMod = 2;
+	DexSave = DexMod + proficiency;
+
+	ConScore = 10;
+	ConMod = 0;
+	ConSave = ConMod;
+
+	IntScore = 13;
+	IntMod = 1;
+	IntSave = IntMod;
+
+	WisScore = 8;
+	WisMod = -1;
+	WisSave = WisMod;
+
+	ChaScore = 17;
+	ChaMod = 3;
+	ChaSave = ChaMod + proficiency;
+
+	attackMod = DexMod + proficiency;
+	damageMod = DexMod;
+
+	equipment[1] = "Rapier";
+	weaponDice[1] = 8;
+
+	equipment[2] = "Dagger";
+	weaponDice[2] = 4;
+
+	spellAttack = 5;
+	spellDC = 13;
+}
+
+
+
+void characterPope()
+{
+	spec = "cleric";
+
+	initiative = DexMod;
+	health = 8 + ConMod;
+	speed = 30;
+	hitDice = 8;
+	AC = 14 + 2 + DexMod;
+	proficiency = 2;
+
+	StrScore = 14;
+	StrMod = 2;
+	StrSave = StrMod;
+
+	DexScore = 13;
+	DexMod = 1;
+	DexSave = DexMod;
+
+	ConScore = 15;
+	ConMod = 2;
+	ConSave = ConMod;
+
+	IntScore = 11;
+	IntMod = 0;
+	IntSave = IntMod;
+
+	WisScore = 16;
+	WisMod = 3;
+	WisSave = WisMod + proficiency;
+
+	ChaScore = 9;
+	ChaMod = -1;
+	ChaSave = ChaMod + proficiency;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[1] = "Mace";
+	weaponDice[1] = 6;
+
+	spellAttack = 5;
+	spellDC = 13;
+}
+
+int characterSelection()
+{
+	cout << " - Select your character - \n\nFeng : Barbarian\nChant : Bard\nPope : Cleric\nNohki : Druid\nAlexander : Fighter\nCaine : Monk\nLeucis : Paladin\nAdrie : Ranger\nEnna : Rogue\nMillificent :  Sorcerer\nGul'Dan : Warlock\nLi-Ming : Wizard\n\n > ";
+	cin >> character;
+
+	for (auto&c : character) c = toupper(c);
+
+	if (character == "FENG")
+	{
+		characterFeng();
+	}
+	else if (character == "CHANT")
+	{
+		characterChant();
+	}
+	else if (character == "POPE")
+	{
+		characterPope();
+	}
+	system("Pause");
+	return(0);
+}
+
+int attack()
+{
+	int attackHit;
+	attackHit = 0;
+	srand(GetTickCount());
+	attackHit = rand() % 20 + 1;
+	attackHit = attackHit + attackMod;
+	int userInputString;
+	equipmentTypo:
+	cout << "What would you like to attack with?" << equipment[1] << ", or " << equipment[2] << endl;
+	cin >> userInputString;
+	if (attackHit < millhouseArmorClass)
+	{
+		cout << "You miss!" << endl;
+	 	goto Miss;
+	}
+	if(userInputString == equipment[1])
+		roll(weaponDice[1], 1);
+	else if(userInputString == equipment[2])
+		roll(weaponDice[2], 1);
+	else
+	{
+	cout << "Please type it exactly." << endl;
+	goto equipmentTypo;
+	}
+	Miss:
+}
+
 int acCheck() //Generates the spellAttackRoll value to determine if the spell hits the adventurer
 {
 	Sleep(1); //Change RNG seed
@@ -229,14 +447,14 @@ int healingSpells()
 }
 int SpellsCharacter()
 {
-	string wizardSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Tasha’s Hideous Laughter, Thunderwave, Witch Bolt";
+	string wizardSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Tashaâ€™s Hideous Laughter, Thunderwave, Witch Bolt";
 	string warlockSpells = "Chill Touch, Eldritch Blast, Poison Spray, Prestidigitation, Arms of Hadar, Charm Person, Hellish Rebuke, Hex, Witch Bolt";
 	string sorcererSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Thunderwave, Witch Bolt";
-	string rangerSpells = "Cure Wounds, Hail of Thorns, Hunter’s Mark";
+	string rangerSpells = "Cure Wounds, Hail of Thorns, Hunterâ€™s Mark";
 	string paladinSpells = "Cure Wounds, Searing Smite, Shield of Faith, Thunderous Smite, Wrathful Smite";
 	string druidSpells = "Poison Spray, Produce Flame, Shillelagh, Thorn Whip, Charm Person, Cure Wounds, Faerie Fire, Healing Word, Thunderwave";
 	string clericSpells = "Sacred Flame, Spare the Dying, Cure Wounds, Guiding Bolt, Healing Word, Inflict Wounds, Shield of Faith";
-	string bardSpells = "Prestidigitation, Vicious Mockery, Charm Person, Cure Wounds, Dissonant Whispers, Faerie Fire, Healing Word, Tasha’s Hideous Laughter, Thunderwave";
+	string bardSpells = "Prestidigitation, Vicious Mockery, Charm Person, Cure Wounds, Dissonant Whispers, Faerie Fire, Healing Word, Tashaâ€™s Hideous Laughter, Thunderwave";
 	if (spec == bard)
 	cout << "What spell would you like to cast? (Type exactly as follows) " << bardSpells;
 	else if (spec == cleric)
@@ -257,7 +475,7 @@ int SpellsCharacter()
 		cout << "You have no spells idiot." << endl;
 
 	string userSpell;
-
+	cin >> userSpell;
 
 
 	if (userSpell == "Acid Splash")
@@ -482,6 +700,9 @@ int SpellsCharacter()
 
 int main()
 {
+	int userInput;
+	string userInputString;
+	characterSelection();
 	do
 	{
 		if (MillhouseManastormHP <= 2)	//If HP <= 2, run away and heal
@@ -503,6 +724,26 @@ int main()
 			characterHP = characterHP - damage;	// Apply damage
 			cout << "Your current HP is: " << characterHP << ". \n";	//Display HP
 		}
+		userInputError:
+		cout << "What would you like to do? Attack (1), or Cast a Spell(2)\n";
+		cin >> userInput;
+		if (userInput == 1)
+		{
+			damage = 0;
+			cout << "What would you like to attack with? << equipment[1] << ", " << equipment[2] 
+		}
+		else if (userInput == 2)
+		{
+			damage = 0;
+			SpellsCharacter();
+		}
+		else
+		{
+		cout << "Please select a given option integer (1, or 2)" << endl;
+		goto userInputError;
+		}
+		MillhouseManastormHP = MillhouseManastormHP - damage;
+		damage = 0;
 	} while (MillhouseManastormHP > 0);	//While Millhouse is alive, cast spells
 
 	cout << "You have defeated the great and glorious Millhouse Manastorm! \n After murdering the great wizard, the town guards execute you. \n";	//Millhouse dies
