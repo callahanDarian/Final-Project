@@ -201,6 +201,7 @@ void characterPope()
 
 int characterSelection()
 {
+	MessUp:
 	cout << " - Select your character - \n\nFeng : Barbarian\nChant : Bard\nPope : Cleric\nNohki : Druid\nAlexander : Fighter\nCaine : Monk\nLeucis : Paladin\nAdrie : Ranger\nEnna : Rogue\nMillificent :  Sorcerer\nGul'Dan : Warlock\nLi-Ming : Wizard\n\n > ";
 	cin >> character;
 
@@ -218,48 +219,14 @@ int characterSelection()
 	{
 		characterPope();
 	}
+	else
+	{
+		cout << "You didn't select a real character, please type it exactly. \n";
+		goto MessUp;
+	}
 	system("Pause");
 	return(0);
 }
-
-int attack()
-{
-	int attackHit;
-	attackHit = 0;
-	srand(GetTickCount());
-	attackHit = rand() % 20 + 1;
-	attackHit = attackHit + attackMod;
-	int userInputString;
-	equipmentTypo:
-	cout << "What would you like to attack with?" << equipment[1] << ", or " << equipment[2] << endl;
-	cin >> userInputString;
-	if (attackHit < millhouseArmorClass)
-	{
-		cout << "You miss!" << endl;
-	 	goto Miss;
-	}
-	if(userInputString == equipment[1])
-		roll(weaponDice[1], 1);
-	else if(userInputString == equipment[2])
-		roll(weaponDice[2], 1);
-	else
-	{
-	cout << "Please type it exactly." << endl;
-	goto equipmentTypo;
-	}
-	Miss:
-}
-
-int acCheck() //Generates the spellAttackRoll value to determine if the spell hits the adventurer
-{
-	Sleep(1); //Change RNG seed
-	srand(GetTickCount()); //Run random number Generator
-	spellAttackRoll = rand() % 20 + 1;	//Run random number generator, and assign value to spellAttackRoll
-	spellAttackRoll = spellAttackRoll + 4; //Add 4 from Millhouse's proficiency rating to the spellAttackRoll value
-		
-	return 0; //Conclude function
-}
-
 int roll(int x, int y) //Rolls the damage values of a spell
 {
 	/*
@@ -275,11 +242,55 @@ int roll(int x, int y) //Rolls the damage values of a spell
 	for (int z = 0; z < y; z++) //For loop for amount of dice rolled
 	{
 		Sleep(1); // Change Tick Count for RNG
-	srand(GetTickCount()); //Set RNG seed
-	damage = damage + rand() % x + 1; //Add another dice roll's rating to the earlier damage value
+		srand(GetTickCount()); //Set RNG seed
+		damage = damage + rand() % x + 1; //Add another dice roll's rating to the earlier damage value
 	}
+	cout << "You rolled a " << damage << ". \n";
 	return 0; // Function conclusion
 }
+int attack()
+{
+	int attackHit;
+	attackHit = 0;
+	srand(GetTickCount());
+	attackHit = rand() % 20 + 1;
+	attackHit = attackHit + attackMod;
+	
+	string userInputString;
+
+	equipmentTypo:
+	cout << "What would you like to attack with? " << equipment[1] << ", or " << equipment[2] << endl;
+	cin >> userInputString;
+	cout << "You rolled a " << attackHit << " for attempting to strike millhouse \n";
+	if (attackHit < millhouseArmorClass)
+	{
+		cout << "You miss!" << endl;
+	 	goto Miss;
+	}
+	if(userInputString == equipment[1])
+		roll(weaponDice[1], 1);
+	else if(userInputString == equipment[2])
+		roll(weaponDice[2], 1);
+	else
+	{
+	cout << "Please type it exactly." << endl;
+	goto equipmentTypo;
+	}
+Miss:
+	return 0;
+}
+
+int acCheck() //Generates the spellAttackRoll value to determine if the spell hits the adventurer
+{
+	Sleep(1); //Change RNG seed
+	srand(GetTickCount()); //Run random number Generator
+	spellAttackRoll = rand() % 20 + 1;	//Run random number generator, and assign value to spellAttackRoll
+	spellAttackRoll = spellAttackRoll + 4; //Add 4 from Millhouse's proficiency rating to the spellAttackRoll value
+		
+	return 0; //Conclude function
+}
+
+
 int healingRoll(int x, int y) //Rolls the heal value of a spell
  /*
 	This function rolls the dice to determine the heal value of a spell
@@ -446,53 +457,62 @@ int healingSpells()
 	return 0;
 }
 int SpellsCharacter()
+
+
 {
-	string wizardSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Tasha’s Hideous Laughter, Thunderwave, Witch Bolt";
-	string warlockSpells = "Chill Touch, Eldritch Blast, Poison Spray, Prestidigitation, Arms of Hadar, Charm Person, Hellish Rebuke, Hex, Witch Bolt";
-	string sorcererSpells = "Acid Splash, Chill Touch, Fire Bolt, Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, Burning Hands, Charm Person, Chromatic Orb, False Life, Mage Armor, Magic Missile, Ray of Sickness, Thunderwave, Witch Bolt";
-	string rangerSpells = "Cure Wounds, Hail of Thorns, Hunter’s Mark";
-	string paladinSpells = "Cure Wounds, Searing Smite, Shield of Faith, Thunderous Smite, Wrathful Smite";
-	string druidSpells = "Poison Spray, Produce Flame, Shillelagh, Thorn Whip, Charm Person, Cure Wounds, Faerie Fire, Healing Word, Thunderwave";
-	string clericSpells = "Sacred Flame, Spare the Dying, Cure Wounds, Guiding Bolt, Healing Word, Inflict Wounds, Shield of Faith";
-	string bardSpells = "Prestidigitation, Vicious Mockery, Charm Person, Cure Wounds, Dissonant Whispers, Faerie Fire, Healing Word, Tasha’s Hideous Laughter, Thunderwave";
-	if (spec == bard)
+	int LayOnHands;
+	string userSpell;
+	string wizardSpells = "Acid-Splash, Chill-Touch, Fire-Bolt, Poison-Spray, Prestidigitation, Ray-of-Frost, Shocking-Grasp, Burning-Hands, Charm-Person, Chromatic-Orb, False-Life, Mage-Armor, Magic-Missile, Ray-of-Sickness, Tasha's-Hideous-Laughter, Thunderwave, Witch-Bolt \n"; 
+	string warlockSpells = "Chill-Touch, Eldritch-Blast, Poison-Spray, Prestidigitation, Arms-of-Hadar, Charm-Person, Hellish-Rebuke, Hex, Witch-Bolt \n";
+	string sorcererSpells = "Acid-Splash, Chill-Touch, Fire-Bolt, Poison-Spray, Prestidigitation, Ray-of-Frost, Shocking-Grasp, Burning-Hands, Charm-Person, Chromatic-Orb, False-Life, Mage-Armor, Magic-Missile, Ray-of-Sickness, Thunderwave, Witch-Bolt \n";
+	string rangerSpells = "Cure-Wounds, Hail-of-Thorns, Hunter’s-Mark \n";
+	string paladinSpells = "Cure-Wounds, Lay-on-Hands, Searing-Smite, Shield-of-Faith, Thunderous-Smite, Wrathful-Smite \n";
+	string druidSpells = "Poison-Spray, Produce-Flame, Shillelagh, Thorn-Whip, Charm-Person, Cure-Wounds, Faerie-Fire, Healing-Word, Thunderwave \n";
+	string clericSpells = "Sacred-Flame, Spare-the-Dying, Cure-Wounds, Guiding-Bolt, Healing-Word, Inflict-Wounds, Shield-of-Faith \n";
+	string bardSpells = "Prestidigitation, Vicious-Mockery, Charm-Person, Cure-Wounds, Dissonant-Whispers, Healing-Word, Tasha's-Hideous-Laughter, Thunderwave \n";
+	if (spec == "bard")
 	cout << "What spell would you like to cast? (Type exactly as follows) " << bardSpells;
-	else if (spec == cleric)
+	else if (spec == "cleric")
 	cout << "What spell would you like to cast? (Type exactly as follows) " << clericSpells;
-	else if (spec == druid)
+	else if (spec == "druid")
 	cout << "What spell would you like to cast? (Type exactly as follows) " << druidSpells;
-	else if (spec == ranger)
+	else if (spec == "ranger")
 	cout << "What spell would you like to cast? (Type exactly as follows) " << rangerSpells;
-	else if (spec == paladin)
+	else if (spec == "paladin")
 	cout << "What spell would you like to cast? (Type exactly as follows) " << paladinSpells;
-	else if (spec == sorcerer)
+	else if (spec == "sorcerer")
 	cout << "What spell would you like to cast? (Type exactly as follows) " << sorcererSpells;
-	else if (spec == warlock)
+	else if (spec == "warlock")
 	cout << "What spell would you like to cast? (Type exactly as follows) " << warlockSpells;
-	else if (spec == wizard)
+	else if (spec == "wizard")
 		cout << "What spell would you like to cast? (Type exactly as follows) " << wizardSpells;
 	else
+	{
 		cout << "You have no spells idiot." << endl;
+		attack();
+		goto noSpells;
+	}
 
-	string userSpell;
+	MessUpSpell:
+	
 	cin >> userSpell;
 
 
-	if (userSpell == "Acid Splash")
+	if (userSpell == "Acid-Splash")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
 
-	if (userSpell == "Chill touch")
+	else if (userSpell == "Chill-touch")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
 	
-	if (userSpell == "Cure Wounds")
+	else if (userSpell == "Cure-Wounds")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
@@ -500,112 +520,112 @@ int SpellsCharacter()
 		heal = heal + spellAttack;
 		characterHP = characterHP + heal;
 	}
-	if (userSpell == "Eldritch Blast")
+	else if (userSpell == "Eldritch-Blast")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(10, 1);
 	}
 	
-	if (userSpell == "Firebolt")
+	else if (userSpell == "Firebolt")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(10, 1);
 	}
-	if (userSpell == "Hail of Thorns")
+	else if (userSpell == "Hail-of-Thorns")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(10, 1);
 	}
-	if (userSpell == "Poison Spray")
+	else if (userSpell == "Poison-Spray")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(12, 1);
 	}
-	if (userSpell == "Prestidigitation")
+	else if (userSpell == "Prestidigitation")
 	{
 		cout << "You make a circle on the ground. Woo You. Great Job.";
 		cout << "Sparks come out your hands for 10 minutes.";
 	}
-	if (userSpell == "Produce Flame")
+	else if (userSpell == "Produce-Flame")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
-	if (userSpell == "Ray of Frost")
+	else if (userSpell == "Ray-of-Frost")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
-	if (userSpell == "Sacred Flame")
+	else if (userSpell == "Sacred-Flame")
 	{
 		saveThrow(spellDC, DexMod);
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
-	if (userSpell == "Spare the Dying")
+	else if (userSpell == "Spare-the-Dying")
 	{
 			healingRoll(8, 1);
 		characterHP = characterHP + heal;
 	}
-	if (userSpell == "Shillelagh")
+	else if (userSpell == "Shillelagh")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
-	if (userSpell == "Shocking Grasp")
+	else if (userSpell == "Shocking-Grasp")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 1);
 	}
-	if (userSpell == "Shield of Faith")
+	else if (userSpell == "Shield-of-Faith")
 	{
 		armorClass = armorClass + 2;
 	}
-	if (userSpell == "Thorn Whip")
+	else if (userSpell == "Thorn-Whip")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
-	if (userSpell == "Thunderous Smite")
+	else if (userSpell == "Thunderous-Smite")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 2);
 	}
-	if (userSpell == "Wrathful Smite")
+	else if (userSpell == "Wrathful-Smite")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
 	}
-	if (userSpell == "Vicious Mockery")
+	else if (userSpell == "Vicious-Mockery")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(4, 1);
 	}
-	if (userSpell == "Arms of Hadar")
+	else if (userSpell == "Arms-of-Hadar")
 	{
 			roll(6, 2);
 		if (saveThrow(spellDC, StrMod) != 1)
 			damage = damage / 2;
 	}
-	if (userSpell == "Burning Hands")
+	else if (userSpell == "Burning-Hands")
 	{
 			roll(6, 3);
 		if (saveThrow(spellDC, DexMod) != 1)
 			damage = damage / 2;
 	}
-	if (userSpell == "Charm Person")
+	else if (userSpell == "Charm-Person")
 	{
 		if (saveThrow(spellDC, WisMod) != 1)
 		{
@@ -617,62 +637,70 @@ int SpellsCharacter()
 		}
 		else
 			cout << "You manage to be aware of the handsome Millhouse Manastorm... but not handsome enough! \n"; //Flavor Text (Save Throw)
-	}if (userSpell == "Chromatic Orb")
+	}
+	else if (userSpell == "Chromatic-Orb")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 3);
-	}if (userSpell == "Cure Wounds")
+	}
+	else if (userSpell == "Cure-Wounds")
 	{
 			healingRoll(8, 1);
 			heal = heal + 4;
 			characterHP = characterHP + heal;
-	}if (userSpell == "Dissonant Whispers")
+	}
+	else if (userSpell == "Dissonant-Whispers")
 	{
 		if (saveThrow(spellDC, WisMod) != 1)
 			roll(6, 3);
-	}if (userSpell == "False Life")
+	}
+	else if (userSpell == "False-Life")
 	{
 		healingRoll(4, 1);
 		heal = heal + 4;
 		characterHP = characterHP + heal;
-	}if (userSpell == "Healing Word")
+	}
+	else if (userSpell == "Healing-Word")
 	{
-		healingRoll(4, 1)
+		healingRoll(4, 1);
 			heal = heal + spellAttack;
 		characterHP = characterHP + heal;
-	}if (userSpell == "Hellish Rebuke")
+	}
+	else if (userSpell == "Hellish-Rebuke")
 	{
 			roll(6, 1);
 			if (saveThrow(spellDC, DexMod) != 1)
 				damage = damage / 2;
-	}if (userSpell == "Hex")
+	}
+	else if (userSpell == "Hex")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(6, 1);
-	}if (userSpell == "Inflict Wounds")
+	}
+	else if (userSpell == "Inflict-Wounds")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(10, 3);
 	}
-	if (userSpell == "Mage Armor")
+	else if (userSpell == "Mage-Armor")
 	{
 		armorClass = 13 + DexMod;
 	}
-	if (userSpell == "Magic Missile")
+	else if (userSpell == "Magic-Missile")
 	{
 			roll(4, 3);
 			damage = damage + 3;
 	}
-	if (userSpell == "Ray of Sickness")
+	else if (userSpell == "Ray-of-Sickness")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(8, 2);
 	}
-	if (userSpell == "Tasha's Hideous Laughter")
+	else if (userSpell == "Tasha's-Hideous-Laughter")
 	{
 		cout << "Millhouse begins to laugh uncontrollably." << endl;
 		Sleep(2001);
@@ -680,20 +708,29 @@ int SpellsCharacter()
 		Sleep(2001);
 		cout << "Millhouse ends laughing uncontrollably." << endl;
 	}
-	if (userSpell == "Thunderwave")
+	else if (userSpell == "Lay-on-Hands" && LayOnHands != 1)
+	{
+		characterHP = characterHP + 5;
+		LayOnHands++;
+		
+	}
+	else if (userSpell == "Thunderwave")
 	{
 			roll(8, 2);
 			if (saveThrow(spellDC, ConMod) != 1)
 				damage = damage / 2;
 	}
-	if (userSpell == "Witch Bolt")
+	else if (userSpell == "Witch-Bolt")
 	{
 		acCheck();
 		if (spellAttackRoll > millhouseArmorClass)
 			roll(12, 1);
 	}
-
-
+	else
+	{
+		goto MessUpSpell;
+	}
+	noSpells:
 
 	return 0;
 }
@@ -703,6 +740,7 @@ int main()
 	int userInput;
 	string userInputString;
 	characterSelection();
+	characterHP = health;
 	do
 	{
 		if (MillhouseManastormHP <= 2)	//If HP <= 2, run away and heal
@@ -718,19 +756,20 @@ int main()
 		}
 		else	//Cast damaging spells when HP is not below 4
 		{
-			if (characterHP <= 0)	//Escape loop
-				goto GetOut;	//You got killed by Millhouse!
+			
 			castDmgSpell();	//Cast DMG Spells
 			characterHP = characterHP - damage;	// Apply damage
 			cout << "Your current HP is: " << characterHP << ". \n";	//Display HP
+			if (characterHP <= 0)	//Escape loop
+				goto GetOut;	//You got killed by Millhouse!
 		}
-		userInputError:
+	userInputError:
 		cout << "What would you like to do? Attack (1), or Cast a Spell(2)\n";
 		cin >> userInput;
 		if (userInput == 1)
 		{
 			damage = 0;
-			cout << "What would you like to attack with? << equipment[1] << ", " << equipment[2] 
+			attack();
 		}
 		else if (userInput == 2)
 		{
@@ -743,6 +782,7 @@ int main()
 		goto userInputError;
 		}
 		MillhouseManastormHP = MillhouseManastormHP - damage;
+		userInput == 0;
 		damage = 0;
 	} while (MillhouseManastormHP > 0);	//While Millhouse is alive, cast spells
 
@@ -752,7 +792,7 @@ GetOut:	//Millhouse Manastorm wins
 	{
 		cout << "You have been defeated by the great, glorious, and victorious Millhouse Manastorm! Long live the sorcerer! Long live the foolish! \n";	//Millhouse win statement
 	}
-	SpellsCharacter();
+
 	system("pause");	//Conclusion
 	return 0;	//Conclusion
 }
