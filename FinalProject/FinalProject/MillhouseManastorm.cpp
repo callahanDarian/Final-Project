@@ -14,7 +14,7 @@ to select it's spell, and then cast it on the opponent for a random amount of da
 #include<random>	//random number generator
 #include<string>	//string outputs
 #include<Windows.h>	//GetTickCount
-
+#include<conio.h>	//Brosius's Special Colors
 
 using namespace std;
 //Only uses namespace std
@@ -199,6 +199,451 @@ void characterPope()
 	spellDC = 13;
 }
 
+
+
+void characterNohki()
+{
+	spec = "cleric";
+
+	initiative = DexMod;
+	health = 8 + 1 + ConMod;
+	speed = 25;
+	hitDice = 8;
+	AC = 11 + 2 + DexMod;
+	proficiency = 2;
+
+	StrScore = 13;
+	StrMod = 1;
+	StrSave = StrMod;
+
+	DexScore = 12;
+	DexMod = 1;
+	DexSave = DexMod;
+
+	ConScore = 16;
+	ConMod = 3;
+	ConSave = ConMod;
+
+	IntScore = 8;
+	IntMod = -1;
+	IntSave = IntMod + proficiency;
+
+	WisScore = 16;
+	WisMod = 3;
+	WisSave = WisMod + proficiency;
+
+	ChaScore = 10;
+	ChaMod = 0;
+	ChaSave = ChaMod;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[1] = "Scimitar";
+	weaponDice[1] = 6;
+
+	equipment[2] = "Shield";
+	weaponDice[1] = 4;
+
+	spellAttack = 5;
+	spellDC = 13;
+}
+
+
+
+void characterAlexander()
+{
+	spec = "fighter";
+
+	initiative = DexMod;
+	health = 10 + ConMod;
+	speed = 30;
+	hitDice = 10;
+	AC = 16 + 2 + 1;
+	proficiency = 2;
+
+	StrScore = 17;
+	StrMod = 3;
+	StrSave = StrMod + proficiency;
+
+	DexScore = 14;
+	DexMod = 2;
+	DexSave = DexMod;
+
+	ConScore = 13;
+	ConMod = 1;
+	ConSave = ConMod + proficiency;
+
+	IntScore = 12;
+	IntMod = 1;
+	IntSave = IntMod;
+
+	WisScore = 10;
+	WisMod = 0;
+	WisSave = WisMod;
+
+	ChaScore = 9;
+	ChaMod = -1;
+	ChaSave = ChaMod;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[1] = "Lance";
+	weaponDice[1] = 12;
+
+	equipment[2] = "Handaxe";
+	weaponDice[2] = 6;
+
+	spellAttack = 3;
+	spellDC = 11;
+}
+
+
+
+void characterCaine()
+{
+	spec = "monk";
+
+	initiative = DexMod;
+	health = 8 + ConMod;
+	speed = 35;
+	hitDice = 8;
+	AC = 10 + DexMod + WisMod;
+	proficiency = 2;
+
+	StrScore = 13;
+	StrMod = 1;
+	StrSave = StrMod + proficiency;
+
+	DexScore = 17;
+	DexMod = 3;
+	DexSave = DexMod + proficiency;
+
+	ConScore = 12;
+	ConMod = 1;
+	ConSave = ConMod;
+
+	IntScore = 10;
+	IntMod = 0;
+	IntSave = IntMod;
+
+	WisScore = 15;
+	WisMod = 2;
+	WisSave = WisMod;
+
+	ChaScore = 8;
+	ChaMod = -1;
+	ChaSave = ChaMod;
+
+	attackMod = DexMod + proficiency;
+	damageMod = DexMod;
+
+	equipment[1] = "Shortsword";
+	weaponDice[1] = 10;
+
+	spellAttack = 2;
+	spellDC = 1;
+}
+
+
+
+void characterLeucis()
+{
+	spec = "paladin";
+
+	initiative = DexMod;
+	health = 10 + ConMod;
+	speed = 30;
+	hitDice = 10;
+	AC = 16 + 2;
+	proficiency = 2;
+
+	StrScore = 15;
+	StrMod = 2;
+	StrSave = StrMod;
+
+	DexScore = 12;
+	DexMod = 1;
+	DexSave = DexMod;
+
+	ConScore = 14;
+	ConMod = 2;
+	ConSave = ConMod;
+
+	IntScore = 11;
+	IntMod = 0;
+	IntSave = IntMod;
+
+	WisScore = 8;
+	WisMod = -1;
+	WisSave = WisMod + proficiency;
+
+	ChaScore = 15;
+	ChaMod = 2;
+	ChaSave = ChaMod + proficiency;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[1] = "Lance";
+	weaponDice[1] = 12;
+
+	equipment[2] = "Javelin";
+	weaponDice[2] = 6;
+
+	spellAttack = 4;
+	spellDC = 12;
+}
+
+
+
+void characterAdrie()
+{
+	spec = "ranger";
+
+	initiative = DexMod;
+	health = hitDice + ConMod;
+	speed = 30;
+	hitDice = 10;
+	AC = 14 + DexMod;
+	proficiency = 2;
+
+	StrScore = 12;
+	StrMod = 1;
+	StrSave = StrMod + proficiency;
+
+	DexScore = 17;
+	DexMod = 3;
+	DexSave = DexMod + proficiency;
+
+	ConScore = 14;
+	ConMod = 2;
+	ConSave = ConMod;
+
+	IntScore = 10;
+	IntMod = 0;
+	IntSave = IntMod;
+
+	WisScore = 14;
+	WisMod = 2;
+	WisSave = WisMod;
+
+	ChaScore = 8;
+	ChaMod = -1;
+	ChaSave = ChaMod;
+
+	attackMod = DexMod + proficiency;
+	damageMod = DexMod;
+
+	equipment[1] = "Shortsword";
+	weaponDice[1] = 6;
+
+	equipment[2] = "Longbow";
+	weaponDice[2] = 8;
+
+	spellAttack = 4;
+	spellDC = 12;
+}
+
+
+
+void characterEnna()
+{
+	spec = "rogue";
+
+	initiative = DexMod;
+	health = hitDice + ConMod;
+	speed = 35;
+	hitDice = 8;
+	AC = 14;
+	proficiency = 2;
+
+	StrScore = 13;
+	StrMod = 1;
+	StrSave = StrMod;
+
+	DexScore = 17;
+	DexMod = 3;
+	DexSave = DexMod + proficiency;
+
+	ConScore = 12;
+	ConMod = 1;
+	ConSave = ConMod;
+
+	IntScore = 10;
+	IntMod = 0;
+	IntSave = IntMod + proficiency;
+
+	WisScore = 9;
+	WisMod = -1;
+	WisSave = WisMod;
+
+	ChaScore = 14;
+	ChaMod = 2;
+	ChaSave = ChaMod;
+
+	attackMod = DexMod + proficiency;
+	damageMod = DexMod;
+
+	equipment[1] = "Rapier";
+	weaponDice[1] = 8;
+
+	equipment[2] = "Shortsword";
+	weaponDice[2] = 6;
+
+	equipment[3] = "Dagger";
+	weaponDice[3] = 4;
+
+	spellAttack = 4;
+	spellDC = 12;
+}
+
+void characterMillificent()
+{
+	spec = "sorcerer";
+
+	initiative = DexMod;
+	health = hitDice + ConMod;
+	speed = 25;
+	hitDice = 8;
+	AC = 11;
+	proficiency = 2;
+
+	StrScore = 13;
+	StrMod = 1;
+	StrSave = StrMod;
+
+	DexScore = 13;
+	DexMod = 1;
+	DexSave = DexMod;
+
+	ConScore = 14;
+	ConMod = 2;
+	ConSave = ConMod + proficiency;
+
+	IntScore = 12;
+	IntMod = 1;
+	IntSave = IntMod;
+
+	WisScore = 8;
+	WisMod = -1;
+	WisSave = WisMod;
+
+	ChaScore = 15;
+	ChaMod = 2;
+	ChaSave = ChaMod + proficiency;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[1] = "Sickle";
+	weaponDice[1] = 8;
+
+	equipment[3] = "Dagger";
+	weaponDice[3] = 4;
+
+	spellAttack = 4;
+	spellDC = 12;
+}
+
+
+
+void characterGuldan()
+{
+	spec = "warlock";
+
+	initiative = DexMod;
+	health = hitDice + ConMod;
+	speed = 30;
+	hitDice = 8;
+	AC = 11;
+	proficiency = 2;
+
+	StrScore = 15;
+	StrMod = 1;
+	StrSave = StrMod;
+
+	DexScore = 13;
+	DexMod = 1;
+	DexSave = DexMod;
+
+	ConScore = 14;
+	ConMod = 2;
+	ConSave = ConMod + proficiency;
+
+	IntScore = 12;
+	IntMod = 1;
+	IntSave = IntMod;
+
+	WisScore = 8;
+	WisMod = -1;
+	WisSave = WisMod;
+
+	ChaScore = 15;
+	ChaMod = 2;
+	ChaSave = ChaMod + proficiency;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[1] = "Fel-Fire";
+	weaponDice[1] = 12;
+
+	equipment[3] = "Dagger";
+	weaponDice[3] = 4;
+
+	spellAttack = 5;
+	spellDC = 15;
+}
+
+void characterLiming()
+{
+	spec = "warlock";
+
+	initiative = DexMod;
+	health = hitDice + ConMod;
+	speed = 30;
+	hitDice = 6;
+	AC = 10;
+	proficiency = 2;
+
+	StrScore = 10;
+	StrMod = 0;
+	StrSave = StrMod;
+
+	DexScore = 10;
+	DexMod = 0;
+	DexSave = DexMod;
+
+	ConScore = 10;
+	ConMod = 0;
+	ConSave = ConMod;
+
+	IntScore = 30;
+	IntMod = 10;
+	IntSave = IntMod + proficiency;
+
+	WisScore = 10;
+	WisMod = 0;
+	WisSave = WisMod;
+
+	ChaScore = 10;
+	ChaMod = 0;
+	ChaSave = ChaMod + proficiency;
+
+	attackMod = StrMod + proficiency;
+	damageMod = StrMod;
+
+	equipment[3] = "Wand";
+	weaponDice[3] = 4;
+
+	spellAttack = 10;
+	spellDC = 30;
+}
+
+
+
 int characterSelection()
 {
 	MessUp:
@@ -218,6 +663,42 @@ int characterSelection()
 	else if (character == "POPE")
 	{
 		characterPope();
+	}
+	else if (character == "NOHKI")
+	{
+		characterNohki();
+	}
+	else if (character == "ALEXANDER")
+	{
+		characterAlexander();
+	}
+	else if (character == "CAINE")
+	{
+		characterCaine();
+	}
+	else if (character == "LEUCIS")
+	{
+		characterLeucis();
+	}
+	else if (character == "ADRIE")
+	{
+		characterAdrie();
+	}
+	else if (character == "ENNA")
+	{
+		characterEnna();
+	}
+	else if (character == "MILLIFICENT")
+	{
+		characterMillificent();
+	}
+	else if (character == "GUL'DAN")
+	{
+		characterGuldan();
+	}
+	else if (character == "LI-MING")
+	{
+		characterLiming();
 	}
 	else
 	{
@@ -737,10 +1218,17 @@ int SpellsCharacter()
 
 int main()
 {
+	system("color 5E");
 	int userInput;
 	string userInputString;
+	System::Console::WindowLeft;
+	System::Console::WindowTop;
+	int width = System::Console::LargestWindowWidth - 25;
+	int height = System::Console::LargestWindowHeight - 8;
+	System::Console::SetWindowSize(width, height);
 	characterSelection();
 	characterHP = health;
+
 	do
 	{
 		if (MillhouseManastormHP <= 2)	//If HP <= 2, run away and heal
@@ -782,18 +1270,25 @@ int main()
 		goto userInputError;
 		}
 		MillhouseManastormHP = MillhouseManastormHP - damage;
-		userInput == 0;
+		cout << "Millhouse HP = " << MillhouseManastormHP << endl;
+		userInput = 0;
 		damage = 0;
 	} while (MillhouseManastormHP > 0);	//While Millhouse is alive, cast spells
-
+	Sleep(1000);
 	cout << "You have defeated the great and glorious Millhouse Manastorm! \n After murdering the great wizard, the town guards execute you. \n";	//Millhouse dies
 GetOut:	//Millhouse Manastorm wins
+
 	if (characterHP <= 0)	//If character dies
 	{
 		cout << "You have been defeated by the great, glorious, and victorious Millhouse Manastorm! Long live the sorcerer! Long live the foolish! \n";	//Millhouse win statement
 	}
-
+	Sleep(3000);
+	system("color 4C");
+	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << " You Died " << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
 	system("pause");	//Conclusion
 	return 0;	//Conclusion
 }
 
+//Hey, Author's note:
+//It works. Unlike some other peoples >.> 
+// ¯\_(ツ)_/¯
